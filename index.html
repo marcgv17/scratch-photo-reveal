@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scratch to Reveal</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      margin-top: 20px;
+      color: #333;
+    }
+    canvas {
+      margin: 20px auto;
+      display: block;
+      border: 2px solid #ddd;
+    }
+    .controls {
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Scratch to Reveal</h1>
+  <div class="controls">
+    <input type="file" id="imageUpload" accept="image/*">
+  </div>
+  <canvas id="scratchCanvas" width="400" height="400"></canvas>
+
+  <script>
+    const canvas = document.getElementById("scratchCanvas");
+    const ctx = canvas.getContext("2d");
+    const imageUpload = document.getElementById("imageUpload");
+
+    let isDrawing = false;
+    let image = new Image();
+
+    imageUpload.addEventListener("change", (event) => {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          image.src = e.target.result;
+          image.onload = () => {
+            ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+            applyScratchEffect();
+          };
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    function applyScratchEffect() {
+      ctx.globalCompositeOperation = "source-over";
+      ctx.fillStyle = "#999";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.globalCompositeOperation = "destination-out";
+    }
+
+    canvas.addEventListener("mousedown", () => (isDrawing = true));
+    canvas.addEventListener("mouseup", () => (isDrawing = false));
+    canvas.addEventListener("mousemove", (e) => {
+      if (isDrawing) {
+        const rect = canvas.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        ctx.beginPath();
+        ctx.arc(x, y, 20, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    });
+
+    canvas.addEventListener("touchstart", () => (isDrawing = true));
+    canvas.addEventListener("touchend", () => (isDrawing = false));
+    canvas.addEventListener("touchmove", (e) => {
+      e.preventDefault();
+      const rect = canvas.getBoundingClientRect();
+      const x = e.touches[0].clientX - rect.left;
+      const y = e.touches[0].clientY - rect.top;
+      ctx.beginPath();
+      ctx.arc(x, y, 20, 0, Math.PI * 2);
+      ctx.fill();
+    });
+  </script>
+</body>
+</html>
