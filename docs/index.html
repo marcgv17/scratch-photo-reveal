@@ -30,12 +30,12 @@
   <script src="script.js"></script>
   <script>
     const canvas = document.getElementById("scratchCanvas");
-    const ctx = canvas.getContext("2d");
 
     // Preload the image
     const image = new Image();
     image.src = "docs/photo.jpg"; // Replace with the filename of your preloaded photo
     image.onload = () => {
+      const ctx = canvas.getContext("2d");
       // Draw the image on the canvas
       ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
 
