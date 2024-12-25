@@ -27,19 +27,17 @@
   <h1>Scratch to Reveal</h1>
   <canvas id="scratchCanvas" width="400" height="400"></canvas>
 
-  <script src="script.js"></script>
   <script>
     const canvas = document.getElementById("scratchCanvas");
+    const ctx = canvas.getContext("2d"); // Initialize the canvas context
 
     // Preload the image
     const image = new Image();
-    image.src = "docs/photo.jpg"; // Replace with the filename of your preloaded photo
+    image.src = "docs/photo.jpg"; // Path to the image
     image.onload = () => {
-      // Draw the image on the canvas
+      // Draw the image onto the canvas
       ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
-
-      // Add the overlay (scratching layer)
-      applyScratchOverlay();
+      applyScratchOverlay(); // Apply the scratchable layer
     };
 
     function applyScratchOverlay() {
@@ -49,7 +47,7 @@
       ctx.globalCompositeOperation = "destination-out"; // Scratch effect mode
     }
 
-    // Variables to track the scratching state
+    // Variables to track user interaction
     let isDrawing = false;
     let lastX = 0;
     let lastY = 0;
@@ -58,7 +56,7 @@
       ctx.beginPath();
       ctx.moveTo(lastX, lastY);
       ctx.lineTo(x, y);
-      ctx.lineWidth = 40; // Adjust the line width for smoother effect
+      ctx.lineWidth = 40; // Adjust for smoother scratches
       ctx.lineCap = "round";
       ctx.stroke();
       lastX = x;
@@ -74,7 +72,7 @@
     }
 
     function handleTouchMove(e) {
-      e.preventDefault();
+      e.preventDefault(); // Prevent scrolling during touch interaction
       if (!isDrawing) return;
       const rect = canvas.getBoundingClientRect();
       const x = e.touches[0].clientX - rect.left;
