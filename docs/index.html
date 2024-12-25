@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Scratch to Reveal</title>
-  <link rel="stylesheet" href="styles.css">
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -29,12 +28,13 @@
 
   <script>
     const canvas = document.getElementById("scratchCanvas");
-    const ctx = canvas.getContext("2d"); // Initialize the canvas context
+    const ctx = canvas.getContext("2d");
 
     // Preload the image
     const image = new Image();
-    image.src = "photo.jpg"; // Path to the image
+    image.src = "photo.jpg"; // Ensure this path is correct
     image.onload = () => {
+      console.log("Image loaded");
       // Draw the image onto the canvas
       ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
       applyScratchOverlay(); // Apply the scratchable layer
@@ -89,6 +89,7 @@
     });
 
     canvas.addEventListener("mouseup", () => (isDrawing = false));
+    canvas.addEventListener("mouseleave", () => (isDrawing = false)); // Stop drawing when leaving canvas
     canvas.addEventListener("mousemove", handleMouseMove);
 
     // Touch Event Listeners
@@ -100,6 +101,7 @@
     });
 
     canvas.addEventListener("touchend", () => (isDrawing = false));
+    canvas.addEventListener("touchcancel", () => (isDrawing = false)); // Stop drawing on touch cancel
     canvas.addEventListener("touchmove", handleTouchMove);
   </script>
 </body>
