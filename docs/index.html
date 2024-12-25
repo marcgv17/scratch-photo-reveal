@@ -36,19 +36,15 @@
     image.src = "photo.jpg"; // Replace with correct path
     image.onload = () => {
       ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
-      applyScratchOverlay();
+    //  applyScratchOverlay();
     };
     image.onerror = () => alert("Image could not be loaded. Check the source!");
 
     function applyScratchOverlay() {
-      console.log("Applying scratch overlay");
-      // Set the composite operation to default
-      ctx.globalCompositeOperation = "source-over";
-      // Apply a solid color overlay
+      ctx.globalCompositeOperation = "source-over"; // Normal blending
       ctx.fillStyle = "#006400"; // Dark green overlay
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      // Set the composite operation for scratching
-      ctx.globalCompositeOperation = "destination-out";
+      ctx.fillRect(0, 0, canvas.width, canvas.height); // Cover the image
+      ctx.globalCompositeOperation = "destination-out"; // Change blending mode for scratches
     }
 
     // Variables to track user interaction
