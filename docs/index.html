@@ -65,6 +65,7 @@
     let lastY = 0;
 
     function draw(x, y) {
+      ctx.strokeStyle = 'rgba(0,0,0,1)'; // Ensure the stroke is visible
       ctx.beginPath();
       ctx.moveTo(lastX, lastY);
       ctx.lineTo(x, y);
