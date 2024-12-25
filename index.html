@@ -43,12 +43,12 @@
 
     function applyScratchOverlay() {
       ctx.globalCompositeOperation = "source-over"; // Default mode
-      ctx.fillStyle = "#999"; // Gray overlay
+      ctx.fillStyle = "#006400"; // Dark green overlay
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       ctx.globalCompositeOperation = "destination-out"; // Scratch effect mode
     }
 
-    // Add scratching effect
+    // Variables to track the scratching state
     let isDrawing = false;
     let lastX = 0;
     let lastY = 0;
@@ -58,7 +58,7 @@
       ctx.moveTo(lastX, lastY);
       ctx.lineTo(x, y);
       ctx.lineWidth = 40; // Adjust the line width for smoother effect
-      ctx.lineCap = 'round';
+      ctx.lineCap = "round";
       ctx.stroke();
       lastX = x;
       lastY = y;
@@ -81,6 +81,7 @@
       draw(x, y);
     }
 
+    // Mouse Event Listeners
     canvas.addEventListener("mousedown", (e) => {
       isDrawing = true;
       const rect = canvas.getBoundingClientRect();
@@ -89,10 +90,9 @@
     });
 
     canvas.addEventListener("mouseup", () => (isDrawing = false));
-    canvas.addEventListener("mouseleave", () => (isDrawing = false));
     canvas.addEventListener("mousemove", handleMouseMove);
 
-    // Add support for touch devices
+    // Touch Event Listeners
     canvas.addEventListener("touchstart", (e) => {
       isDrawing = true;
       const rect = canvas.getBoundingClientRect();
@@ -101,7 +101,6 @@
     });
 
     canvas.addEventListener("touchend", () => (isDrawing = false));
-    canvas.addEventListener("touchcancel", () => (isDrawing = false));
     canvas.addEventListener("touchmove", handleTouchMove);
   </script>
 </body>
