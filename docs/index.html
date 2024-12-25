@@ -36,7 +36,7 @@
     image.src = "photo.jpg"; // Replace with correct path
     image.onload = () => {
       ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
-    //  applyScratchOverlay();
+      applyScratchOverlay();
     };
     image.onerror = () => alert("Image could not be loaded. Check the source!");
 
@@ -52,9 +52,10 @@
     let lastX = 0, lastY = 0;
 
     function draw(x, y) {
-      ctx.strokeStyle = 'rgba(0,0,0,1)'; // Ensure the stroke is visible
+      ctx.globalCompositeOperation = "destination-out"; // Reveals underlying content
       ctx.lineWidth = 40;
       ctx.lineCap = "round";
+      ctx.strokeStyle = "rgba(0,0,0,1)";
       ctx.beginPath();
       ctx.moveTo(lastX, lastY);
       ctx.lineTo(x, y);
