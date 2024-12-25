@@ -37,6 +37,8 @@
     image.onload = () => {
       console.log("Image loaded");
       // Step 1: Draw the image onto the canvas
+      ctx.fillStyle = 'red'; // Temporary background color
+      ctx.fillRect(0, 0, canvas.width, canvas.height); // Fill canvas with red
       ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
       console.log("Image drawn on canvas");
       // Step 2: Apply the overlay on top of the image
