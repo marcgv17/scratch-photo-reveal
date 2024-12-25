@@ -24,7 +24,7 @@
 </head>
 <body>
   <h1>Scratch to Reveal</h1>
-  <canvas id="scratchCanvas" width="400" height="400"></canvas>
+  <canvas id="scratchCanvas" width="400" height="600"></canvas>
 
   <script>
     const canvas = document.getElementById("scratchCanvas");
@@ -52,7 +52,7 @@
       // Set the composite operation to default
       ctx.globalCompositeOperation = "source-over";
       // Apply a solid color overlay
-      ctx.fillStyle = "rgba(0, 100, 0, 0.5)"; // Dark green overlay
+      ctx.fillStyle = "#006400"; // Dark green overlay
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       // Set the composite operation for scratching
       ctx.globalCompositeOperation = "destination-out";
