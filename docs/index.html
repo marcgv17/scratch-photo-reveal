@@ -35,6 +35,7 @@
     const image = new Image();
     image.src = "photo.jpg"; // Replace with correct path
     image.onload = () => {
+      console.log("Image loaded successfully");
       ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
       applyScratchOverlay();
     };
