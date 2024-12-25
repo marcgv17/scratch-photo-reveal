@@ -42,7 +42,7 @@
 
     function applyScratchOverlay() {
       ctx.globalCompositeOperation = "source-over"; // Default mode
-      ctx.fillStyle = "#006400"; // Dark green overlay
+      ctx.fillStyle = "rgba(0, 100, 0, 0.5)"; // Dark green overlay
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       ctx.globalCompositeOperation = "destination-out"; // Scratch effect mode
     }
