@@ -25,6 +25,7 @@
 <body>
   <h1>Scratch to Reveal</h1>
   <canvas id="scratchCanvas" width="400" height="600"></canvas>
+  <button id="revealButton">Reveal Content</button>
 
   <script>
     const canvas = document.getElementById("scratchCanvas");
@@ -32,23 +33,12 @@
 
     // Preload the image
     const image = new Image();
-    image.src = "photo.jpg"; // Ensure this path is correct
-    // image.src = "https://via.placeholder.com/400"; // Use this line to test with a placeholder image
+    image.src = "photo.jpg"; // Replace with correct path
     image.onload = () => {
-      console.log("Image loaded");
-      // Step 1: Draw the image onto the canvas
-      ctx.fillStyle = 'red'; // Temporary background color
-      ctx.fillRect(0, 0, canvas.width, canvas.height); // Fill canvas with red
       ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
-      console.log("Image drawn on canvas");
-      // Step 2: Apply the overlay on top of the image
       applyScratchOverlay();
     };
-
-    image.onerror = () => {
-      console.error("Failed to load image. Check the path or URL.");
-      alert("Failed to load image. Check the path or URL.");
-    };
+    image.onerror = () => alert("Image could not be loaded. Check the source!");
 
     function applyScratchOverlay() {
       console.log("Applying scratch overlay");
@@ -63,16 +53,15 @@
 
     // Variables to track user interaction
     let isDrawing = false;
-    let lastX = 0;
-    let lastY = 0;
+    let lastX = 0, lastY = 0;
 
     function draw(x, y) {
       ctx.strokeStyle = 'rgba(0,0,0,1)'; // Ensure the stroke is visible
+      ctx.lineWidth = 40;
+      ctx.lineCap = "round";
       ctx.beginPath();
       ctx.moveTo(lastX, lastY);
       ctx.lineTo(x, y);
-      ctx.lineWidth = 40; // Adjust for smoother scratches
-      ctx.lineCap = "round";
       ctx.stroke();
       lastX = x;
       lastY = y;
@@ -104,11 +93,16 @@
     });
 
     canvas.addEventListener("mouseup", () => (isDrawing = false));
-    canvas.addEventListener("mouseleave", () => (isDrawing = false)); // Stop drawing when leaving canvas
-    canvas.addEventListener("mousemove", handleMouseMove);
+    canvas.addEventListener("mouseleave", () => (isDrawing = false));
+    canvas.addEventListener("mousemove", (e) => {
+      if (!isDrawing) return;
+      const rect = canvas.getBoundingClientRect();
+      draw(e.clientX - rect.left, e.clientY - rect.top);
+    });
 
     // Touch Event Listeners
     canvas.addEventListener("touchstart", (e) => {
+      e.preventDefault();
       isDrawing = true;
       const rect = canvas.getBoundingClientRect();
       lastX = e.touches[0].clientX - rect.left;
@@ -117,7 +111,16 @@
 
     canvas.addEventListener("touchend", () => (isDrawing = false));
     canvas.addEventListener("touchcancel", () => (isDrawing = false)); // Stop drawing on touch cancel
-    canvas.addEventListener("touchmove", handleTouchMove);
+    canvas.addEventListener("touchmove", (e) => {
+      e.preventDefault();
+      if (!isDrawing) return;
+      const rect = canvas.getBoundingClientRect();
+      draw(e.touches[0].clientX - rect.left, e.touches[0].clientY - rect.top);
+    });
+
+    document.getElementById("revealButton").addEventListener("click", () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    });
   </script>
 </body>
 </html>
