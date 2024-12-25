@@ -1,10 +1,10 @@
 const canvas = document.getElementById("scratchCanvas");
-const ctx = canvas.getContext("2d");
 
 // Preload the image
 const image = new Image();
 image.src = "docs/photo.jpg"; // Replace with the correct image path
 image.onload = () => {
+  const ctx = canvas.getContext("2d");
   // Draw the image on the canvas
   ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
 
