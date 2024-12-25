@@ -30,20 +30,20 @@
   <script src="script.js"></script>
   <script>
     const canvas = document.getElementById("scratchCanvas");
+    const ctx = canvas.getContext("2d");
 
     // Preload the image
     const image = new Image();
-    image.src = "docs/photo.jpg"; // Replace with the filename of your preloaded photo
+    image.src = "https://via.placeholder.com/400"; // Replace with the filename of your preloaded photo
     image.onload = () => {
-      const ctx = canvas.getContext("2d");
       // Draw the image on the canvas
       ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
 
       // Add the overlay (scratching layer)
-      applyScratchOverlay(ctx);
+      applyScratchOverlay();
     };
 
-    function applyScratchOverlay(ctx) {
+    function applyScratchOverlay() {
       ctx.globalCompositeOperation = "source-over"; // Default mode
       ctx.fillStyle = "#006400"; // Dark green overlay
       ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -55,7 +55,7 @@
     let lastX = 0;
     let lastY = 0;
 
-    function draw(ctx, x, y) {
+    function draw(x, y) {
       ctx.beginPath();
       ctx.moveTo(lastX, lastY);
       ctx.lineTo(x, y);
@@ -71,7 +71,7 @@
       const rect = canvas.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
-      draw(ctx, x, y);
+      draw(x, y);
     }
 
     function handleTouchMove(e) {
@@ -80,7 +80,7 @@
       const rect = canvas.getBoundingClientRect();
       const x = e.touches[0].clientX - rect.left;
       const y = e.touches[0].clientY - rect.top;
-      draw(ctx, x, y);
+      draw(x, y);
     }
 
     // Mouse Event Listeners
