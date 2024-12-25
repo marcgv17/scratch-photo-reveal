@@ -35,16 +35,20 @@
     image.src = "photo.jpg"; // Ensure this path is correct
     image.onload = () => {
       console.log("Image loaded");
-      // Draw the image onto the canvas
+      // Step 1: Draw the image onto the canvas
       ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
-      applyScratchOverlay(); // Apply the scratchable layer
+      // Step 2: Apply the overlay on top of the image
+      applyScratchOverlay();
     };
 
     function applyScratchOverlay() {
-      ctx.globalCompositeOperation = "source-over"; // Default mode
+      // Set the composite operation to default
+      ctx.globalCompositeOperation = "source-over";
+      // Apply a solid color overlay
       ctx.fillStyle = "#006400"; // Dark green overlay
       ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.globalCompositeOperation = "destination-out"; // Scratch effect mode
+      // Set the composite operation for scratching
+      ctx.globalCompositeOperation = "destination-out";
     }
 
     // Variables to track user interaction
