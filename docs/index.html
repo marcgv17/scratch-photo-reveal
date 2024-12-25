@@ -42,10 +42,10 @@
     image.onerror = () => alert("Image could not be loaded. Check the source!");
 
     function applyScratchOverlay() {
-      ctx.globalCompositeOperation = "source-over"; // Normal blending
+      ctx.globalCompositeOperation = "destination-out"; // Normal blending - source-over old
       ctx.fillStyle = "#006400"; // Dark green overlay
       ctx.fillRect(0, 0, canvas.width, canvas.height); // Cover the image
-    //  ctx.globalCompositeOperation = "destination-out"; // Change blending mode for scratches
+      ctx.globalCompositeOperation = "destination-out"; // Change blending mode for scratches
     }
 
     // Variables to track user interaction
