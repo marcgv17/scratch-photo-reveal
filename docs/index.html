@@ -45,7 +45,7 @@
       ctx.globalCompositeOperation = "source-over"; // Normal blending
       ctx.fillStyle = "#006400"; // Dark green overlay
       ctx.fillRect(0, 0, canvas.width, canvas.height); // Cover the image
-      ctx.globalCompositeOperation = "destination-out"; // Change blending mode for scratches
+    //  ctx.globalCompositeOperation = "destination-out"; // Change blending mode for scratches
     }
 
     // Variables to track user interaction
@@ -56,7 +56,6 @@
       ctx.globalCompositeOperation = "destination-out"; // Reveals underlying content
       ctx.lineWidth = 40;
       ctx.lineCap = "round";
-      ctx.strokeStyle = "rgba(0,0,0,1)";
       ctx.beginPath();
       ctx.moveTo(lastX, lastY);
       ctx.lineTo(x, y);
