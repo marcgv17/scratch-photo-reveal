@@ -32,16 +32,23 @@
 
     // Preload the image
     const image = new Image();
-    image.src = "https://via.placeholder.com/400"; // Ensure this path is correct
+    image.src = "photo.jpg"; // Ensure this path is correct
+    // image.src = "https://via.placeholder.com/400"; // Use this line to test with a placeholder image
     image.onload = () => {
       console.log("Image loaded");
       // Step 1: Draw the image onto the canvas
       ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+      console.log("Image drawn on canvas");
       // Step 2: Apply the overlay on top of the image
       applyScratchOverlay();
     };
 
+    image.onerror = () => {
+      console.error("Failed to load image. Check the path or URL.");
+    };
+
     function applyScratchOverlay() {
+      console.log("Applying scratch overlay");
       // Set the composite operation to default
       ctx.globalCompositeOperation = "source-over";
       // Apply a solid color overlay
